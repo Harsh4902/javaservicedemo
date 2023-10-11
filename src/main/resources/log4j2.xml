@@ -1,0 +1,41 @@
+<Configuration monitorInterval="60" status="WARN">
+    <Properties>
+        <Property name="LOG_PATH">./logs/</Property>
+        <Property name="LOG_FILE_NAME">javaservice</Property>
+        <Property name="LOG_FILE_DATE">${date:yyyy-MM-dd}</Property>
+        <Property name="LOG_FILE_NAME_EXT">.log/</Property>
+        <Property name="MONITOR_LOG_FILE_NAME">monitor</Property>
+        <property name="LOG_PATTERN">%d %-5p [%t] (%c{1}.%M:%L) - %m%n</property>
+        <property name="LOG_CHARSET">utf-8</property>
+        <property name="ENV_NAME">LOCAL</property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" charset="${LOG_CHARSET}"/>
+        </Console>
+
+        <RollingRandomAccessFile name="RollingLogFile"
+                                 fileName="${LOG_PATH}${LOG_FILE_NAME}-${LOG_FILE_DATE}${LOG_FILE_NAME_EXT}"
+                                 filePattern="${LOG_PATH}${LOG_FILE_NAME}-%d{yyyy-MM-dd}.%i.log.gz">
+
+            <PatternLayout pattern="${LOG_PATTERN}" charset="${LOG_CHARSET}"/>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+
+            <DefaultRolloverStrategy max="15"/>
+        </RollingRandomAccessFile>
+
+    </Appenders>
+
+    <Loggers>
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="RollingLogFile"/>
+            <AppenderRef ref="Console"/>
+        </AsyncRoot>
+    </Loggers>
+
+</Configuration>
