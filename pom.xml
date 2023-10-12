@@ -24,6 +24,7 @@
     <snake-yaml.version>2.0</snake-yaml.version>
     <spring-boot.version>3.1.4</spring-boot.version>
     <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+    <disruptor.version>3.4.4</disruptor.version>
   </properties>
 
   <dependencies>
@@ -35,6 +36,10 @@
         <exclusion>
           <groupId>org.yaml</groupId>
           <artifactId>snakeyaml</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -52,6 +57,14 @@
       <artifactId>snakeyaml</artifactId>
       <version>${snake-yaml.version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+    <dependency>
+      <groupId>com.lmax</groupId>
+      <artifactId>disruptor</artifactId>
+      <version>${disruptor.version}</version>
+    </dependency>
+
 
     <!-- sonarcube plugin that triggers sonarcube analysis -->
     <dependency>
@@ -84,6 +97,20 @@
         </configuration>
       </plugin>
     </plugins>
+
+
+    <!-- exclude files from jar -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>**/**.properties</exclude>
+          <exclude>**/**.xml</exclude>
+        </excludes>
+      </resource>
+    </resources>
+
   </build>
 
 </project>

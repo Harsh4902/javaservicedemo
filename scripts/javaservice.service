@@ -3,7 +3,7 @@ Description=A basic java application service
 
 [Service]
 Type=forking
-ExecStart=/var/lib/JavaService/JavaServiceExecute.sh
+ExecStart=/var/lib/JavaService/scripts/JavaServiceExecute.sh
 SuccessExitStatus=143
 Restart=always
 User=root

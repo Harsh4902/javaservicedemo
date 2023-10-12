@@ -1,11 +1,11 @@
 <Configuration monitorInterval="60" status="WARN">
     <Properties>
-        <Property name="LOG_PATH">./logs/</Property>
-        <Property name="LOG_FILE_NAME">javaservice</Property>
+        <Property name="LOG_PATH">/var/log/JavaService/</Property>
+        <Property name="LOG_FILE_NAME">JavaService</Property>
         <Property name="LOG_FILE_DATE">${date:yyyy-MM-dd}</Property>
         <Property name="LOG_FILE_NAME_EXT">.log/</Property>
         <Property name="MONITOR_LOG_FILE_NAME">monitor</Property>
-        <property name="LOG_PATTERN">%d %-5p [%t] (%c{1}.%M:%L) - %m%n</property>
+        <property name="LOG_PATTERN">%d %-5p [%t] (%c{1}.%M:%L) = %m%n</property>
         <property name="LOG_CHARSET">utf-8</property>
         <property name="ENV_NAME">LOCAL</property>
     </Properties>
