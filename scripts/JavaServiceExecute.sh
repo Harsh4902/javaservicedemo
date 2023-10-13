@@ -39,6 +39,6 @@ echo "Starting Application..."
 
 exec /usr/bin/java $javaOptions -jar $jarDir/$jarName $logConfigFileProp $serverPortProp $logFileNameProp $logFileLocProp > $sysOutLog 2> $sysErrLog &
 
-echo "running on process: $!"
+echo "Running on process: $!"
 
 echo "Done"
