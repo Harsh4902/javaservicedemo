@@ -10,21 +10,25 @@
   </parent>
 
   <groupId>com.anshuman</groupId>
-  <artifactId>JavaServiceDemo</artifactId>
+  <artifactId>JavaService</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
   <description>Demo project for deploying Java as a Service</description>
-  <name>JavaServiceDemo</name>
+  <name>JavaService</name>
 
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- create a usable timestamp property -->
+    <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
 
     <!-- dependency versions -->
-    <snake-yaml.version>2.0</snake-yaml.version>
-    <spring-boot.version>3.1.4</spring-boot.version>
-    <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
     <disruptor.version>3.4.4</disruptor.version>
+    <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+    <plexus-archiver.version>4.8.0</plexus-archiver.version>
+    <snake-yaml.version>2.0</snake-yaml.version>
+    <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+    <spring-boot.version>3.1.4</spring-boot.version>
   </properties>
 
   <dependencies>
@@ -33,11 +37,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
       <exclusions>
-        <exclusion>
+        <exclusion> <!-- exclude this version of yaml, and use newer version to avoid vulnerability -->
           <groupId>org.yaml</groupId>
           <artifactId>snakeyaml</artifactId>
         </exclusion>
-        <exclusion>
+        <exclusion> <!-- exclude this version to avoid conflicts with logging -->
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-logging</artifactId>
         </exclusion>
@@ -58,19 +62,36 @@
       <version>${snake-yaml.version}</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+    <!-- for async logging -->
     <dependency>
       <groupId>com.lmax</groupId>
       <artifactId>disruptor</artifactId>
       <version>${disruptor.version}</version>
     </dependency>
 
-
-    <!-- sonarcube plugin that triggers sonarcube analysis -->
+    <!-- SonarQube plugin that triggers SonarQube analysis -->
     <dependency>
       <groupId>org.sonarsource.scanner.maven</groupId>
       <artifactId>sonar-maven-plugin</artifactId>
       <version>${sonar-maven-plugin.version}</version>
+    </dependency>
+
+    <!-- plugin dependency to configure packaging (use for creating zip file artifact) -->
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <version>${maven-assembly-plugin.version}</version>
+      <exclusions>
+        <exclusion> <!-- https://devhub.checkmarx.com/cve-details/CVE-2023-37460/ -->
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-archiver</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-archiver</artifactId>
+      <version>${plexus-archiver.version}</version>
     </dependency>
 
     <dependency>
@@ -78,7 +99,6 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -95,6 +115,29 @@
             </exclude>
           </excludes>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
+        <configuration>
+          <!-- don’t want to append the id in assembly.xml with the final zip archive. -->
+          <appendAssemblyId>false</appendAssemblyId>
+          <!-- specify timestamp in the output assembly (zip file) -->
+          <finalName>${project.artifactId}-${project.version}_${maven.build.timestamp}</finalName>
+          <descriptors>
+            <descriptor>${basedir}/src/main/resources/assembly.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>create-archive</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
 

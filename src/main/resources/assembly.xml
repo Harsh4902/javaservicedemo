@@ -1,0 +1,50 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
+    <id>create-archive</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <!-- Whether to include the project’s artifactId-version, and if it is being used as the assembly base directory. -->
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+
+        <!-- exclude documents dir -->
+<!--        <fileSet>-->
+<!--            <directory>./documents/</directory>-->
+<!--            <useDefaultExcludes>true</useDefaultExcludes>-->
+<!--        </fileSet>-->
+
+        <!-- include scripts dir -->
+        <fileSet>
+            <directory>${project.basedir}/scripts</directory>
+            <!--  Assembling only files from the config directory with extensions .ksh and .properties
+            and rest of the files will be ignored -->
+            <includes>
+                <include>*.sh</include>
+                <include>*.service</include>
+            </includes>
+            <outputDirectory>/scripts</outputDirectory>
+        </fileSet>
+
+        <!-- include properties -->
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <includes>
+                <include>*.properties</include>
+                <include>*.xml</include>
+            </includes>
+            <outputDirectory>/properties</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <file>
+            <source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+    </files>
+
+</assembly>
