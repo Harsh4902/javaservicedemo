@@ -11,12 +11,6 @@
 
     <fileSets>
 
-        <!-- exclude documents dir -->
-<!--        <fileSet>-->
-<!--            <directory>./documents/</directory>-->
-<!--            <useDefaultExcludes>true</useDefaultExcludes>-->
-<!--        </fileSet>-->
-
         <!-- include scripts dir -->
         <fileSet>
             <directory>${project.basedir}/scripts</directory>

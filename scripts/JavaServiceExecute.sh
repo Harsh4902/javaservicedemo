@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # name and version
 serviceName=JavaService
@@ -19,7 +19,7 @@ sysErrLog=$logDir/systemErr.log
 
 echo "Redirecting Console output out: $sysOutLog and error: $sysErrLog"
 
-jarName="$serviceName"Demo-$version.jar
+jarName="$serviceName"-$version.jar
 echo "Using jar name: $jarName"
 
 echo "Using java version: $($(which java) --version)"

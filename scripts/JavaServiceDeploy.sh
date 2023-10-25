@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # How to use:
 # See documents/DeploymentSteps.md in the code base
@@ -27,6 +27,9 @@ mkdir -pv $logDir
 echo "Creating properties directory if it does not exist: $propDir"
 mkdir -pv $propDir
 
+echo "Creating scripts directory if it does not exist: $scriptDir"
+mkdir -pv $scriptDir
+
 echo "Create old-artifact directory if it does not exist"
 mkdir -pv $workDir/oldArtifacts
 
@@ -34,7 +37,7 @@ mkdir -pv $workDir/oldArtifacts
 # take backup
 echo "Moving old artifacts to oldArtifacts directory (with current timestamp)"
 mkdir -pv $workDir/oldArtifacts/"$currentTimeStamp"
-mv -fv $workDir/* $workDir/oldArtifacts/"$currentTimeStamp"/
+mv -fv $workDir/"$jarFile" $workDir/scripts/* $workDir/properties/* $workDir/oldArtifacts/"$currentTimeStamp"/
 
 
 # copy files from package to working directory
@@ -64,3 +67,6 @@ systemctl start $applicationName
 # Any post-start-tasks go here.
 
 echo "$applicationName deployment completed"
+
+echo "check status: sudo systemctl status $applicationName"
+echo "check logs: journalctl -xeu $applicationName.service"

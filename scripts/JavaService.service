@@ -7,8 +7,8 @@ ExecStart=/var/lib/JavaService/scripts/JavaServiceExecute.sh
 SuccessExitStatus=143
 Restart=always
 User=root
-WorkingDirectory=/var/lib/JavaService
-RuntimeDirectory=/var/lib/JavaService
+WorkingDirectory=/var/lib/JavaService/
+RuntimeDirectory=/var/lib/JavaService/
 RuntimeDirectoryMode=0755
 
 [Install]
