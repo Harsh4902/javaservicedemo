@@ -12,7 +12,7 @@
   <groupId>com.anshuman</groupId>
   <artifactId>JavaService</artifactId>
   <version>1.0</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <description>Demo project for deploying Java as a Service</description>
   <name>JavaService</name>
 

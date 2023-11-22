@@ -19,7 +19,7 @@ sysErrLog=$logDir/systemErr.log
 
 echo "Redirecting Console output out: $sysOutLog and error: $sysErrLog"
 
-jarName="$serviceName"-$version.jar
+jarName="$serviceName"-$version.war
 echo "Using jar name: $jarName"
 
 echo "Using java version: $($(which java) --version)"

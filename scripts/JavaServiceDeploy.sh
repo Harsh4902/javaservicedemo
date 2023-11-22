@@ -8,7 +8,7 @@ set -euXo pipefail
 # set variables
 applicationName=JavaService
 version=$1
-jarFile=$applicationName-$version.jar
+jarFile=$applicationName-$version.war
 tmpDir=/tmp/"$applicationName"
 workDir=/var/lib/$applicationName
 logDir=/var/log/$applicationName
