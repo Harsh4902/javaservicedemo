@@ -12,12 +12,12 @@
   <groupId>com.anshuman</groupId>
   <artifactId>JavaService</artifactId>
   <version>1.0</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <description>Demo project for deploying Java as a Service</description>
   <name>JavaService</name>
 
   <properties>
-    <java.version>21</java.version>
+    <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- create a usable timestamp property -->
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -74,6 +74,24 @@
       <groupId>org.sonarsource.scanner.maven</groupId>
       <artifactId>sonar-maven-plugin</artifactId>
       <version>${sonar-maven-plugin.version}</version>
+    </dependency>
+
+    <!-- dependency for jsp -->
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>glassfish-jstl</artifactId>
+      <version>11.0.12</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <!-- plugin dependency to configure packaging (use for creating zip file artifact) -->
@@ -143,16 +161,16 @@
 
 
     <!-- exclude files from jar -->
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-        <excludes>
-          <exclude>**/**.properties</exclude>
-          <exclude>**/**.xml</exclude>
-        </excludes>
-      </resource>
-    </resources>
+<!--    <resources>-->
+<!--      <resource>-->
+<!--        <directory>src/main/resources</directory>-->
+<!--        <filtering>true</filtering>-->
+<!--        <excludes>-->
+<!--          <exclude>**/**.properties</exclude>-->
+<!--          <exclude>**/**.xml</exclude>-->
+<!--        </excludes>-->
+<!--      </resource>-->
+<!--    </resources>-->
 
   </build>
 
