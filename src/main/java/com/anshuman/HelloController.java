@@ -9,6 +9,6 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String healthPing() {
-        return "hello";
+        return "hello world";
     }
 }
